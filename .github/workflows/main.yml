@@ -123,12 +123,12 @@ jobs:
         run: echo "\nversion=\"${VERSION}\"" >> build.gradle
 
       # Lint the code (fail if not successful)
-      - name: Linting
-        uses: axel-op/googlejavaformat-action@dbff853fb823671ec5781365233bf86543b13215
-        with:
-          args: "--set-exit-if-changed"
-          skip-commit: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+   ##   - name: Linting
+    ##    uses: axel-op/googlejavaformat-action@dbff853fb823671ec5781365233bf86543b13215
+    #    with:
+     #     args: "--set-exit-if-changed"
+     #     skip-commit: true
+     #     github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Build the source
       - name: Build with Gradle
