@@ -330,13 +330,13 @@ jobs:
 
   #  Calling  workflow "Badges"
  ## call-badges:
-    if: ${{ (success() || failure()) && !startsWith(github.ref, 'refs/heads/dependabot') }}
-    needs: [ build ]
-    uses: ./.github/workflows/create-badges-update-readme-workflow.yml
-    with:
-      COVERAGE_PERCENTAGE: ${{ needs.build.outputs.COVERAGE_PERCENTAGE }}
-      WORKFLOW_FILE: "java-microservice-build-with-policy-scan.yml"
-      BUILD_JOB_STATUS: ${{ needs.build.outputs.BUILD_JOB_STATUS }}
+    ##if: ${{ (success() || failure()) && !startsWith(github.ref, 'refs/heads/dependabot') }}
+    ##needs: [ build ]
+    ##uses: ./.github/workflows/create-badges-update-readme-workflow.yml
+   ## with:
+   ##   COVERAGE_PERCENTAGE: ${{ needs.build.outputs.COVERAGE_PERCENTAGE }}
+    ##  WORKFLOW_FILE: "java-microservice-build-with-policy-scan.yml"
+   ##   BUILD_JOB_STATUS: ${{ needs.build.outputs.BUILD_JOB_STATUS }}
 
   metric-datadog:
     runs-on: ubuntu-latest
