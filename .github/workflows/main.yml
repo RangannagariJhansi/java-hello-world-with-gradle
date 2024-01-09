@@ -108,7 +108,7 @@ jobs:
             if [[ -n "$LINE" && ${LINE::1} != "#" ]]; then
               echo "$LINE" | xargs;
             fi
-          done < ${{ env.ENV_CONFIG_FILE }} > $GITHUB_ENV
+          done < "$GITHUB_ENV"
 
       # Set up JDK environment
       - name: Set up JDK 1.11
