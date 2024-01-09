@@ -320,13 +320,13 @@ jobs:
           echo "BUILD_JOB_STATUS=${{ job.status }}" >> $GITHUB_OUTPUT
 
   #  Veracode calling  workflow
-  call-workflow:
-    needs: [ build ]
-    uses: tr/cicd_gh-actions-veracode/.github/workflows/veracode-upload-and-scan.yml@v4.0.1
-    if: (github.ref == 'refs/heads/main') || (github.event.inputs != '')
-    with:
-      ENV_CONFIG_FILE: ${{ needs.build.outputs.ENVIRONMENT_VARIABLE_PATH }}
-    secrets: inherit
+##  call-workflow:
+##     needs: [ build ]
+ ##    uses: tr/cicd_gh-actions-veracode/.github/workflows/veracode-upload-and-scan.yml@v4.0.1
+ ##    if: (github.ref == 'refs/heads/main') || (github.event.inputs != '')
+ ##    with:
+ ##      ENV_CONFIG_FILE: ${{ needs.build.outputs.ENVIRONMENT_VARIABLE_PATH }}
+  ##   secrets: inherit
 
   #  Calling  workflow "Badges"
  ## call-badges:
