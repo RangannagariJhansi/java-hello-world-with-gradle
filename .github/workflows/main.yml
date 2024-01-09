@@ -329,7 +329,7 @@ jobs:
     secrets: inherit
 
   #  Calling  workflow "Badges"
-  call-badges:
+ ## call-badges:
     if: ${{ (success() || failure()) && !startsWith(github.ref, 'refs/heads/dependabot') }}
     needs: [ build ]
     uses: ./.github/workflows/create-badges-update-readme-workflow.yml
