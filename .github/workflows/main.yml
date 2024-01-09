@@ -208,9 +208,9 @@ jobs:
         run: echo JAVA_ARTIFACT=$(find build/libs/*.jar -type f) >> $GITHUB_ENV
 
       # Run devops_lead-time-action
-      - name: Run devops_lead-time-action
-        uses: tr/devops_lead-time-action@v1.0.6
-        id: lead-time
+     ## - name: Run devops_lead-time-action
+      ##  uses: tr/devops_lead-time-action@v1.0.6
+        ##id: lead-time
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
