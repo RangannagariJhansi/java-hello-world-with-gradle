@@ -115,7 +115,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: corretto
-          java-version: 11
+          java-version: latest
 
       - name: Write Version Number
         shell: sh
