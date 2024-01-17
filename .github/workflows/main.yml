@@ -144,20 +144,20 @@ jobs:
       
         
       # Run unit tests
-   ##   - name: Run Unit Tests
-    ##    env:
-    ##      ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
-    ##      ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
-     ##   shell: sh
-    ##    run: ./gradlew test
+      - name: Run Unit Tests
+        env:
+         ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
+         ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
+        shell: sh
+        run: ./gradlew test
 
       # Publish artifacts to local dir
-   ##   - name: Publish artifacts
-    ##    env:
-    ##      ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
-    ##      ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
-    ##    shell: sh
-    ##    run: ./gradlew publish
+      - name: Publish artifacts
+        env:
+         ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
+         ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
+         shell: sh
+         run: ./gradlew publish
 
       # Find code coverage reports for developer review and badge rendering
       - name: Get Code Coverage File Path
@@ -166,14 +166,14 @@ jobs:
           echo CODE_COV_RESULTS_ARTIFACT=$(find . -iname "*jacocoTestReport.xml*") >> $GITHUB_ENV
 
       # Find unit test results file and rename it
-    ##  - name: Get Unit Test Results File Path and Rename
-    ##     shell: sh
-       ##  id: unit_test_file_name
-     ##    run: |
-    ##       mkdir unit-test-results
-     ##      mv $(find . -iname "*TEST-*.xml*") unit-test-results
-     ##      echo UNIT_TEST_RESULTS_XML=unit-test-results/*.xml >> $GITHUB_ENV
-     ##      echo "UNIT_TEST_RESULTS_XML=${UNIT_TEST_RESULTS_XML}" >> $GITHUB_OUTPUT
+      - name: Get Unit Test Results File Path and Rename
+        shell: sh
+        id: unit_test_file_name
+        run: |
+          mkdir unit-test-results
+          mv $(find . -iname "*TEST-*.xml*") unit-test-results
+           echo UNIT_TEST_RESULTS_XML=unit-test-results/*.xml >> $GITHUB_ENV
+           echo "UNIT_TEST_RESULTS_XML=${UNIT_TEST_RESULTS_XML}" >> $GITHUB_OUTPUT
 
       # Create unit test results-report for easy developer review within GitHub ecosystem
       - name: Create Unit Test Results Report
