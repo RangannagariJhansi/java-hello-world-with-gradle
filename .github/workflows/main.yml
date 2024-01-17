@@ -152,12 +152,12 @@ jobs:
         run: ./gradlew test
 
       # Publish artifacts to local dir
-      - name: Publish artifacts
-        env:
-         ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
-         ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
-        shell: sh
-        run: ./gradlew publish
+      ##- name: Publish artifacts
+      ##  env:
+       #  ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
+        # ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
+       # shell: sh
+       # run: ./gradlew publish
 
       # Find code coverage reports for developer review and badge rendering
       - name: Get Code Coverage File Path
