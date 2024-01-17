@@ -430,6 +430,6 @@ jobs:
 
       - name: Publish Dev/Hotfix Release
         shell: sh
-        run: gh release edit latest ${{ needs.build.outputs.BRANCH_RELEASE_TAG }} 
+        run: gh release edit latest ${{ needs.build.outputs.BRANCH_RELEASE_TAG }} --draft=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
