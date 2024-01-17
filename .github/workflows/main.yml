@@ -137,7 +137,10 @@ jobs:
           ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
         shell: sh
         run: ./gradlew assemble
-
+        
+      - name : executable permissions
+        run : chmod +x ./gradlew
+        
       # Run unit tests
    ##   - name: Run Unit Tests
     ##    env:
