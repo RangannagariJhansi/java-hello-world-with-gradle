@@ -363,7 +363,7 @@ jobs:
             if [[ -n "$LINE" && ${LINE::1} != "#" ]]; then
               echo "$LINE" | xargs;
             fi
-          done < ${{ env.ENV_CONFIG_FILE }} > $GITHUB_ENV
+          done  ${{ env.ENV_CONFIG_FILE }} >> $GITHUB_ENV
 
       # sends custom metrics to Datadog
       - name: Send Metric to DataDog
