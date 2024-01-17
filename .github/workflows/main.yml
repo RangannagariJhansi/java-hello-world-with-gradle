@@ -130,6 +130,9 @@ jobs:
      #     skip-commit: true
      #     github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name : executable permissions
+        run : chmod +x ./gradlew
+
       # Build the source
       - name: Build with Gradle
         env:
@@ -138,8 +141,7 @@ jobs:
         shell: sh
         run: ./gradlew assemble
         
-      - name : executable permissions
-        run : chmod +x ./gradlew
+      
         
       # Run unit tests
    ##   - name: Run Unit Tests
