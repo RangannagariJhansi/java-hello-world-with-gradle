@@ -429,18 +429,29 @@ jobs:
           release_name: ${{env.TAG}}
           draft: false
           prerelease: false
-        
-  publish:
-   runs-on: ubuntu-latest
-   if: (github.event.inputs == '')
-   needs: [ build ]
-   steps:
-      # Check out repo at latest commit
-      - name: Checkout Git Repo
-        uses: actions/checkout@v3
-
-      - name: Publish Dev/Hotfix Release
-        shell: sh
-        run: gh release edit latest ${{ needs.build.outputs.BRANCH_RELEASE_TAG }} --draft=false
+          
+      - name: Upload release asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+         upload_url: ${{ steps.create_release.outputs.upload_url }}
+         asset_path: ./artifact.zip
+         asset_name: artifact.zip
+         asset_content_type: application/zip
+        
+ # publish:
+ #  runs-on: ubuntu-latest
+  # if: (github.event.inputs == '')
+   #needs: [ build ]
+   #steps:
+      # Check out repo at latest commit
+    #  - name: Checkout Git Repo
+     #   uses: actions/checkout@v3
+
+     # - name: Publish Dev/Hotfix Release
+      #  shell: sh
+       # run: gh release edit latest ${{ needs.build.outputs.BRANCH_RELEASE_TAG }} --draft=false
+       # env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
