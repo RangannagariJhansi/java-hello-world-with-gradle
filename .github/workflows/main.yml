@@ -156,8 +156,8 @@ jobs:
         env:
          ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
          ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
-         shell: sh
-         run: ./gradlew publish
+        shell: sh
+        run: ./gradlew publish
 
       # Find code coverage reports for developer review and badge rendering
       - name: Get Code Coverage File Path
