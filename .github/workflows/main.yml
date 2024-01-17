@@ -196,18 +196,18 @@ jobs:
           path: ${{ env.UNIT_TEST_RESULTS_XML }}
 
       # generates coverage-report.md and publishes as checkrun
-      - name: JaCoCo Code Coverage Report
-        id: jacoco_reporter
-        uses: PavanMudigonda/jacoco-reporter@v4.8
-        with:
-          coverage_results_path: ${{ env.CODE_COV_RESULTS_ARTIFACT }}
-          coverage_report_name: coverage
-          coverage_report_title: Java Code Coverage
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          skip_check_run: false
-          minimum_coverage: ${{ env.CODE_COV_THRESHOLD }}
-          fail_below_threshold: true #Set True to enable Quality Gate
-          publish_only_summary: false
+      #- name: JaCoCo Code Coverage Report
+       # id: jacoco_reporter
+       # uses: PavanMudigonda/jacoco-reporter@v4.8
+       # with:
+       #   coverage_results_path: ${{ env.CODE_COV_RESULTS_ARTIFACT }}
+        #  coverage_report_name: coverage
+         # coverage_report_title: Java Code Coverage
+          # github_token: ${{ secrets.GITHUB_TOKEN }}
+         # skip_check_run: false
+         # minimum_coverage: ${{ env.CODE_COV_THRESHOLD }}
+         # fail_below_threshold: true #Set True to enable Quality Gate
+         # publish_only_summary: false
 
       - name: Get path to Java Artifact
         shell: sh
