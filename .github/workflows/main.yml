@@ -229,7 +229,7 @@ jobs:
       #  shell: sh
        # run: |
         #  gh_resp=$(gh api -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/topics)
-          echo REPO_TOPICS=$(echo "$gh_resp" | jq '.names') >> $GITHUB_ENV
+        #  echo REPO_TOPICS=$(echo "$gh_resp" | jq '.names') >> $GITHUB_ENV
        # env:
         #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
