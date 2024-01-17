@@ -44,7 +44,7 @@ jobs:
       # Drafts your next Release notes as Pull Requests are merged into "main"
       - name: Create draft release
         id: draft-release
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -197,6 +197,20 @@ jobs:
 
       - name: listing
         run: ls -laRt
+        
+      - name: zip for GitHub releases
+        shell: pwsh
+        run: |
+         Compress-Archive -Path  build\libs\*  -Destination $GITHUB_RUN_NUMBER.zip
+         ls
+      - name: Create Release and Upload Artifacts
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: $GITHUB_RUN_NUMBER.zip
+          tag: "$GITHUB_RUN_NUMBER"
+          name: "$GITHUB_RUN_NUMBER"
+          allowUpdates: true
+          replacesArtifacts: false
 
       # generates coverage-report.md and publishes as checkrun
       #- name: JaCoCo Code Coverage Report
