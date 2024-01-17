@@ -207,8 +207,8 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: ${{ github.event.repository.name }}.zip
-          tag: "$GITHUB_RUN_NUMBER"
-          name: "$GITHUB_RUN_NUMBER"
+          tag: "${{ github.run_number }}"
+          name: "${{ github.run_number }}"
           allowUpdates: true
           replacesArtifacts: false
 
