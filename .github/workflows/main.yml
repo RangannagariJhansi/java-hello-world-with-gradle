@@ -201,12 +201,12 @@ jobs:
       - name: zip for GitHub releases
         shell: pwsh
         run: |
-         Compress-Archive -Path  build\libs\*  -Destination $GITHUB_RUN_NUMBER.zip
+         Compress-Archive -Path  build\libs\*  -Destination ${{ github.event.repository.name }}.zip
          ls
       - name: Create Release and Upload Artifacts
         uses: ncipollo/release-action@v1
         with:
-          artifacts: $GITHUB_RUN_NUMBER.zip
+          artifacts: ${{ github.event.repository.name }}.zip
           tag: "$GITHUB_RUN_NUMBER"
           name: "$GITHUB_RUN_NUMBER"
           allowUpdates: true
