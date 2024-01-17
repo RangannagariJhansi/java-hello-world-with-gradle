@@ -421,7 +421,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    if: (github.event.inputs != '')
+    if: (github.event.inputs == '')
     needs: [ build ]
     steps:
       # Check out repo at latest commit
