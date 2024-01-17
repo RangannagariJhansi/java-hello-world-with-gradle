@@ -240,7 +240,7 @@ jobs:
       - name: Create zip of published artifacts
         shell: sh
         run: |
-          zip -r artifact.zip * -x@${{ env.ARTIFACT_EXCLUSION_FILE }}
+          zip -r artifact.zip * -x ${{ env.ARTIFACT_EXCLUSION_FILE }}
 
       - name: Upload Release Asset
         shell: sh
