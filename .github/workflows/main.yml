@@ -212,6 +212,11 @@ jobs:
           allowUpdates: true
           replacesArtifacts: false
 
+     # - name: SonarQube Scan
+      #  env:
+       #   SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+       # run: ./gradlew sonarqube
+
       # generates coverage-report.md and publishes as checkrun
       #- name: JaCoCo Code Coverage Report
        # id: jacoco_reporter
