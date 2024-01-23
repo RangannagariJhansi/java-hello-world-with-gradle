@@ -194,7 +194,12 @@ jobs:
         with:
           name: unit-test-results
           path: ${{ env.UNIT_TEST_RESULTS_XML }}
-
+          
+      - name: SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonarqube
+        
       - name: listing
         run: ls -laRt
         
@@ -212,11 +217,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: false
 
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonarqube
-
+  
       # generates coverage-report.md and publishes as checkrun
       #- name: JaCoCo Code Coverage Report
        # id: jacoco_reporter
