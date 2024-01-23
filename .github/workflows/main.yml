@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - masterr
     paths-ignore:
       - '**.md'
     tags-ignore:
@@ -212,10 +212,10 @@ jobs:
           allowUpdates: true
           replacesArtifacts: false
 
-     # - name: SonarQube Scan
-      #  env:
-       #   SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-       # run: ./gradlew sonarqube
+      - name: SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonarqube
 
       # generates coverage-report.md and publishes as checkrun
       #- name: JaCoCo Code Coverage Report
