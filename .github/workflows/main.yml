@@ -213,8 +213,8 @@ jobs:
             -Dsonar.scm.provider=tfvc
             -Dsonar.tfvc.collectionuri="https://workaround-tfvc-plugin-issue/DefaultCollection"
             -Dsonar.language=java
-            -Dsonar.sources="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}"
-            -Dsonar.java.binaries="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/classes"
+         #   -Dsonar.sources="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}"
+        #    -Dsonar.java.binaries="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/classes"
         #   -Dsonar.tests="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}src/test"
          #  -Dsonar.junit.reportPaths="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/test-results/test/"
           # -Dsonar.c.file.suffixes=-
