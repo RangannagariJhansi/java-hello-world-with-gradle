@@ -26,8 +26,6 @@ buildscript {
 	}
 
 plugins {
-    id 'org.unbroken-dome.helm' version '1.7.0'
-    id 'org.unbroken-dome.helm-publish' version '1.7.0'
     id "org.sonarqube" version "3.5.0.2730"
 }
 
