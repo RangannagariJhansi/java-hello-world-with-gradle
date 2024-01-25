@@ -197,10 +197,31 @@ jobs:
           name: unit-test-results
           path: ${{ env.UNIT_TEST_RESULTS_XML }}
           
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonar
+     ## - name: SonarQube Scan
+      ##  env:
+      ##    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      ##  run: ./gradlew sonar
+      
+      - name: "SonarQube Setup"
+        uses: warchant/setup-sonar-scanner@v3
+      - name: "Sonar Scanning"
+        run: sonar-scanner
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.projectVersion=${{steps.build_number.outputs.build_version}}
+            -Dsonar.scm.provider=tfvc
+            -Dsonar.tfvc.collectionuri="https://workaround-tfvc-plugin-issue/DefaultCollection"
+            -Dsonar.language=java
+            -Dsonar.sources="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}src/main"
+            -Dsonar.java.binaries="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/classes"
+            -Dsonar.tests="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}src/test"
+            -Dsonar.junit.reportPaths="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/test-results/test/"
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.branch.name=${BRANCH_NAME}
         
       - name: listing
         run: ls -laRt
