@@ -167,6 +167,7 @@ jobs:
         run: |
           echo CODE_COV_RESULTS_ARTIFACT=$(find . -iname "*jacocoTestReport.xml*") >> $GITHUB_ENV
           echo ${{ env.CODE_COV_RESULTS_ARTIFACT }}
+          echo ${{ secrets.SONAR_PROJECT_KEY }}
 
       # Find unit test results file and rename it
       - name: Get Unit Test Results File Path and Rename
