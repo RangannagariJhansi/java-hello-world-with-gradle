@@ -29,15 +29,20 @@ plugins {
     id "org.sonarqube" version "3.5.0.2730"
 }
 
-
 sonarqube {
-   properties {
-        property 'sonar.host.url', 'https://sonar.prod.thomsonreuters.com/projects'
-        property 'sonar.projectKey', 'Commercial Eng- Demo-App'
-        property 'sonar.projectName', 'Commercial Eng- Demo-App'
-        property 'sonar.sources', 'src'
-        // Add more properties as needed
-    }
+	
+	properties {
+		property "sonar.projectBaseDir",rootDir
+		property "sonar.host.url", "${sonarHostUrl}"
+		property "sonar.login", "${sonarLogin}"
+		property "sonar.projectKey", "${sonarProject}"
+		property "sonar.projectName", "${sonarProject}"
+		property "sonar.analysis.mode", "preview"
+		property "sonar.scm.provider", "git"
+		property "sonar.sources", "src/main"
+		property "sonar.test.inclusions", "src/test/java/**/*Test.java"
+		property "sonar.projectVersion", "${currentVersion}"
+	}
 }
 allprojects {
     repositories {
