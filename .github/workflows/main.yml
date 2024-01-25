@@ -209,7 +209,7 @@ jobs:
         run: sonar-scanner
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
             -Dsonar.projectVersion=${{steps.build_number.outputs.build_version}}
             -Dsonar.scm.provider=tfvc
             -Dsonar.tfvc.collectionuri="https://workaround-tfvc-plugin-issue/DefaultCollection"
