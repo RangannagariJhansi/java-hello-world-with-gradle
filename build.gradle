@@ -33,10 +33,9 @@ sonarqube {
 	
 	properties {
 		property "sonar.projectBaseDir",rootDir
-		property "sonar.host.url", "${sonarHostUrl}"
-		property "sonar.login", "${sonarLogin}"
-		property "sonar.projectKey", "${sonarProject}"
-		property "sonar.projectName", "${sonarProject}"
+		property "sonar.host.url", "${SONAR_HOST_URL}"
+		property "sonar.projectKey", "${SONAR_PROJECT_KEY}"
+		property "sonar.projectName", "${CHILD_SPRING_APPS_PROJECT_NAME}"
 		property "sonar.analysis.mode", "preview"
 		property "sonar.scm.provider", "git"
 		property "sonar.sources", "src/main"
