@@ -215,6 +215,7 @@ jobs:
             -Dsonar.tfvc.collectionuri="https://workaround-tfvc-plugin-issue/DefaultCollection"
             -Dsonar.language=java
             -Dsonar.exclusions=**/*.java
+            -Dsonar.qualitygate.wait=true
          #   -Dsonar.sources="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}"
         #    -Dsonar.java.binaries="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/classes"
         #   -Dsonar.tests="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}src/test"
