@@ -446,27 +446,6 @@ jobs:
 #                tags:
 #                  - "project:${{ github.event.repository.name }}"
 #                  - "branch:${{ github.ref_name }}"
-#       - name: Run post build step
-#         env:
-#           ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
-#           TR-JFROG-AWS: ${{ secrets.ARTIFACTORY_TOKEN }}
-#           JOB_NAME: CI-$env
-#           BUILD_NUMBER: ${{ github.run_number }}
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         run: |
-#           echo "TAG=Java-CI-$env:BUILD_NUMBER-AMS" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-                 
-#    publish:
-#    runs-on: ubuntu-latest
-#    if: (github.event.inputs == '')
-#    needs: [ build ]
-#    steps:
-#        Check out repo at latest commit
-#       - name: Checkout Git Repo
-#         uses: actions/checkout@v3
 
-#       - name: Publish Dev/Hotfix Release
-#         shell: sh
-#         run: gh release edit latest ${{ needs.build.outputs.BRANCH_RELEASE_TAG }} --draft=false
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+                 
+
