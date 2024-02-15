@@ -22,8 +22,8 @@ on:
 
 env:
   # Define git user email and name to be used for git commits
-  # GIT_USER_EMAIL: "actions@github.com"
-  # GIT_USER_NAME: "GitHub Actions"
+  GIT_USER_EMAIL: "actions@github.com"
+  GIT_USER_NAME: "GitHub Actions"
   CHILD_SPRING_APPS_PROJECT_NAME : ${{ secrets.CHILD_SPRING_APPS_PROJECT_NAME}}
   SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY}}
   ## ENV_CONFIG_FILE: ".github/env-variables.txt"
