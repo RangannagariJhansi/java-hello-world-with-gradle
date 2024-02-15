@@ -181,20 +181,36 @@ jobs:
         with:
           name: unit-test-results
           path: ${{ env.UNIT_TEST_RESULTS_XML }}
+      - name: Download and Set Up SonarScanner
+        run: |
+          echo 'export SONAR_VERSION="5.0.1.3006-linux"' >> $GITHUB_ENV
+          echo 'export SONAR_CLI="sonar-scanner-cli-${SONAR_VERSION}"' >> $GITHUB_ENV
+          echo 'export SONAR_FOLDER="sonar-scanner-${SONAR_VERSION}"' >> $GITHUB_ENV
+          source $GITHUB_ENV
+          curl "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/${SONAR_CLI}.zip" -o "${SONAR_CLI}.zip"
+          unzip "${SONAR_CLI}.zip"
+          pwd
+          rm -rf sonar-scanner-5.0.1.3006-linux/conf/sonar-scanner.properties
+          cp $GITHUB_WORKSPACE/sonar-scanner.properties sonar-scanner-5.0.1.3006-linux/conf/sonar-scanner.properties 
+          chmod u+x "${SONAR_FOLDER}/bin/sonar-scanner"
+          echo "PATH=\"${PATH}:${PWD}/${SONAR_FOLDER}/bin\"" >> $GITHUB_ENV
+          source $GITHUB_ENV
+          /home/runner/work/java-hello-world-with-gradle/java-hello-world-with-gradle/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.exclusions=**.java -Dsonar.export.results=sonar-results.xml -X
+          ls -lrt
       
-      - name: "SonarQube Setup"
-        uses: warchant/setup-sonar-scanner@v3
-      - name: "Sonar Scanning"
-        run: sonar-scanner -X
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.projectVersion=${{steps.build_number.outputs.build_version}}
-            -Dsonar.scm.provider=tfvc
-            -Dsonar.tfvc.collectionuri="https://workaround-tfvc-plugin-issue/DefaultCollection"
-            -Dsonar.language=java
-            -Dsonar.exclusions=**/*.java
-            -Dsonar.qualitygate.wait=true
+      # - name: "SonarQube Setup"
+      #   uses: warchant/setup-sonar-scanner@v3
+      # - name: "Sonar Scanning"
+      #   run: sonar-scanner -X
+      #       -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+      #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      #       -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+      #       -Dsonar.projectVersion=${{steps.build_number.outputs.build_version}}
+      #       -Dsonar.scm.provider=tfvc
+      #       -Dsonar.tfvc.collectionuri="https://workaround-tfvc-plugin-issue/DefaultCollection"
+      #       -Dsonar.language=java
+      #       -Dsonar.exclusions=**/*.java
+      #       -Dsonar.qualitygate.wait=true
          #   -Dsonar.sources="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}"
         #    -Dsonar.java.binaries="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/classes"
         #   -Dsonar.tests="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}src/test"
