@@ -21,9 +21,6 @@ on:
         - hotfix
 
 env:
-  # Define git user email and name to be used for git commits
-  GIT_USER_EMAIL: "actions@github.com"
-  GIT_USER_NAME: "GitHub Actions"
   CHILD_SPRING_APPS_PROJECT_NAME : ${{ secrets.CHILD_SPRING_APPS_PROJECT_NAME}}
   SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY}}
   
@@ -36,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     outputs:
-      ENVIRONMENT_VARIABLE_PATH: ${{ env.ENV_CONFIG_FILE }}
+      
       UNIT_TEST_RESULTS_XML: ${{ steps.unit_test_file_name.outputs.UNIT_TEST_RESULTS_XML }}
       COVERAGE_PERCENTAGE: ${{ steps.jacoco_reporter.outputs.coverage_percentage }}
       BRANCH_RELEASE_TAG: ${{ steps.get_version.outputs.BRANCH_RELEASE_TAG }}
@@ -48,8 +45,8 @@ jobs:
         id: draft-release
         if: github.ref == 'refs/heads/main'
         uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Check out repo at latest commit
       - name: Checkout Git Repo
@@ -137,14 +134,6 @@ jobs:
         shell: sh
         run: ./gradlew test
 
-      # Publish artifacts to local dir
-      ##- name: Publish artifacts
-      ##  env:
-       #  ARTIFACTORY_TOKEN: ${{ secrets[env.ARTIFACTORY_TOKEN_SECRET_NAME] }}
-        # ARTIFACTORY_USER: ${{ env.ARTIFACTORY_USER }}
-       # shell: sh
-       # run: ./gradlew publish
-
       # Find code coverage reports for developer review and badge rendering
       - name: Get Code Coverage File Path
         shell: sh
@@ -181,6 +170,7 @@ jobs:
         with:
           name: unit-test-results
           path: ${{ env.UNIT_TEST_RESULTS_XML }}
+          
       - name: Download and Set Up SonarScanner
         run: |
           echo 'export SONAR_VERSION="5.0.1.3006-linux"' >> $GITHUB_ENV
@@ -198,29 +188,6 @@ jobs:
           /home/runner/work/java-hello-world-with-gradle/java-hello-world-with-gradle/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.exclusions=**.java -Dsonar.export.results=sonar-results.xml -X
           ls -lrt
       
-      # - name: "SonarQube Setup"
-      #   uses: warchant/setup-sonar-scanner@v3
-      # - name: "Sonar Scanning"
-      #   run: sonar-scanner -X
-      #       -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
-      #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-      #       -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-      #       -Dsonar.projectVersion=${{steps.build_number.outputs.build_version}}
-      #       -Dsonar.scm.provider=tfvc
-      #       -Dsonar.tfvc.collectionuri="https://workaround-tfvc-plugin-issue/DefaultCollection"
-      #       -Dsonar.language=java
-      #       -Dsonar.exclusions=**/*.java
-      #       -Dsonar.qualitygate.wait=true
-         #   -Dsonar.sources="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}"
-        #    -Dsonar.java.binaries="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/classes"
-        #   -Dsonar.tests="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}src/test"
-         #  -Dsonar.junit.reportPaths="${{env.CHILD_SPRING_APPS_PROJECT_NAME}}build/test-results/test/"
-          # -Dsonar.c.file.suffixes=-
-           #-Dsonar.cpp.file.suffixes=-
-           # -Dsonar.objc.file.suffixes=-
-           # -Dsonar.qualitygate.wait=true
-            # -Dsonar.branch.name=${BRANCH_NAME}
-        
       - name: listing
         run: ls -laRt
         
@@ -237,103 +204,3 @@ jobs:
           name: "${{ github.run_number }}"
           allowUpdates: true
           replacesArtifacts: false
-
-  
-      # generates coverage-report.md and publishes as checkrun
-      #- name: JaCoCo Code Coverage Report
-       # id: jacoco_reporter
-       # uses: PavanMudigonda/jacoco-reporter@v4.8
-       # with:
-       #   coverage_results_path: ${{ env.CODE_COV_RESULTS_ARTIFACT }}
-        #  coverage_report_name: coverage
-         # coverage_report_title: Java Code Coverage
-          # github_token: ${{ secrets.GITHUB_TOKEN }}
-         # skip_check_run: false
-         # minimum_coverage: ${{ env.CODE_COV_THRESHOLD }}
-         # fail_below_threshold: true #Set True to enable Quality Gate
-         # publish_only_summary: false
-
-      #- name: Get path to Java Artifact
-       # shell: sh
-        #run: echo JAVA_ARTIFACT=$(find build/libs/*.jar -type f) >> $GITHUB_ENV
-
-      # Run devops_lead-time-action
-     ## - name: Run devops_lead-time-action
-      ##  uses: tr/devops_lead-time-action@v1.0.6
-        ##id: lead-time
-      ##  env:
-        ##  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         ##   GITHUB_REPOSITORY: ${{ github.repository }}
-         ## GITHUB_WORKSPACE: ${{ github.workspace }}
-
-     # - name: fetch repo topics
-      #  shell: sh
-       # run: |
-        #  gh_resp=$(gh api -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/topics)
-        #  echo REPO_TOPICS=$(echo "$gh_resp" | jq '.names') >> $GITHUB_ENV
-       # env:
-        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    #  - name: Create and upload release-info.json
-     #   shell: sh
-#         if: github.ref == 'refs/heads/main'
-#         id: upload-release-info
-#         run: |
-#           echo '{"service_name":"${{ env.SERVICE_NAME }}", "github_repository":"${{ github.repository }}", "github_sha": "${{ steps.lead-time.outputs.commit }}", "repo_topics":${{ env.REPO_TOPICS }}, "full_semver": "${{ steps.lead-time.outputs.name }}", "created_at": "${{ steps.lead-time.outputs.time }}", "lead_time_to_release_days": "${{ steps.lead-time.outputs.lead_time }}"}' > release-info.json
-
-#       - name: Create zip of published artifacts
-#         shell: sh
-#         run: |
-#           zip -r artifact.zip *
-
-#       - name: Upload Release Asset
-#         shell: sh
-#         if: github.ref == 'refs/heads/main'
-#         id: upload-release-asset
-#         run: |
-#           gh release upload --clobber $TAG artifact.zip
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-#       - name: Create Dev/Hotfix draft release
-#         if: (github.event.inputs != '')
-#         uses: ncipollo/release-action@v1
-#         with:
-#           allowUpdates: true
-#           tag: ${{ env.TAG }}
-#           artifacts: artifact.zip
-#           draft: true
-#           commit: ${{ github.sha }}
-#           token: ${{ secrets.GITHUB_TOKEN }}
-
-#       - name: Prepare for Veracode Software Composition Analysis
-#         if: ((github.ref == 'refs/heads/main') || (github.event.inputs != '')) && (env.VERACODE_SCA_AGENT_TOKEN_SECRET_NAME == null)
-#         run: |
-#           echo VERACODE_SCA_AGENT_TOKEN_SECRET_NAME=$(python .github/scripts/sca-workspace-hash.py --repo_name '${{ github.repository }}' --num_workspaces 15 --key_prefix 'ISRM_VERACODE_SCA_WORKSPACE_') >> $GITHUB_ENV
-
-#       - name: Run Veracode Software Composition Analysis
-#         if: (github.ref == 'refs/heads/main') || (github.event.inputs != '')
-#         continue-on-error: true
-#         env:
-#           SRCCLR_API_TOKEN: ${{ secrets[env.VERACODE_SCA_AGENT_TOKEN_SECRET_NAME] }}
-#         uses: veracode/veracode-sca@v2.1.9
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           create-issues: true
-#           allow-dirty: true
-#           no-graphs: true
-
-#       # Break the build based on Veracode flaws (severity + no-more-harm ceiling)
-#       - name: Download the Pipeline Scanner
-#         shell: sh
-#         run: curl -O -L https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-
-#       - name: Unzip the Pipeline Scanner
-#         shell: sh
-#         run: unzip -o pipeline-scan-LATEST.zip
-
-#       - name: Get date-time for scan filename
-#         id: time
-#         run: |
-#           echo "time=$(date +"%Y-%m-%d-%H-%M-%S")" >> $GITHUB_OUTPUT
-
